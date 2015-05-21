@@ -8,8 +8,15 @@ and open the template in the editor.
 
 <files>
     <file>
-        <filePath>Some path/Folder/Folder/file.exe</filePath>
-        <tag>Hello</tag>
-        <tag>World</tag>
+        <filePath>Some path/Folder/Folder/file1.exe</filePath>
+        <tag>one</tag>
+    </file>
+    <file>
+        <filePath>Some path/Folder/Folder/file2.exe</filePath>
+        <tag>two</tag>
+    </file>
+    <file>
+        <filePath>Some path/Folder/Folder/file3.exe</filePath>
+        <tag>three</tag>
     </file>
 </files>

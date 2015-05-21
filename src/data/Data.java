@@ -6,7 +6,11 @@
 package data;
 
 import generated.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -14,6 +18,7 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
@@ -53,5 +58,31 @@ public class Data {
             Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    
+    public void setFiles(Map<String, MetaData> files) {
+        try {
+            JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
+            Marshaller m = jc.createMarshaller();
+            try {
+                OutputStream os = new FileOutputStream(Data.class.getResource(DATAPATH).getFile());
+                FileListT fl = new FileListT();
+                for (Map.Entry<String, MetaData> entry : files.entrySet()) {
+                    FileT f = new FileT();
+                    f.setFilePath(entry.getKey());
+                    for (String s : entry.getValue().getTags()) {
+                        f.getTag().add(s);
+                    }
+                    fl.getFile().add(f);
+                }
+                ObjectFactory o = new ObjectFactory();
+                m.marshal(o.createFiles(fl), os);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (JAXBException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
