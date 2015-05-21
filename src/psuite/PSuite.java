@@ -5,10 +5,6 @@
  */
 package psuite;
 
-import data.Data;
-import data.MetaData;
-import java.util.Map;
-
 /**
  *
  * @author Thomas
@@ -19,6 +15,7 @@ public class PSuite {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("Say something.");
     }
     
 }
