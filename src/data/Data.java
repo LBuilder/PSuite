@@ -6,15 +6,20 @@
 package data;
 
 import generated.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -28,8 +33,8 @@ import javax.xml.transform.stream.StreamSource;
  * @author Thomas
  */
 public class Data {
-    private static final String DATAPATH = "/data/data.xml";
     private static Data instance = null;
+    private static final boolean BUILD = true;
     
     protected Data () {}
     
@@ -45,7 +50,7 @@ public class Data {
         try {
             JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
             Unmarshaller u = jc.createUnmarshaller();
-            Source s = new StreamSource(Data.class.getResourceAsStream(DATAPATH));
+            Source s = new StreamSource(getDataLocation());
             JAXBElement<FileListT> e = u.unmarshal(s, FileListT.class);
             List<FileT> files = e.getValue().getFile();
             files.stream().forEach((file) -> {
@@ -65,7 +70,7 @@ public class Data {
             JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
             Marshaller m = jc.createMarshaller();
             try {
-                OutputStream os = new FileOutputStream(Data.class.getResource(DATAPATH).getFile());
+                OutputStream os = new FileOutputStream(getDataLocation());
                 FileListT fl = new FileListT();
                 for (Map.Entry<String, MetaData> entry : files.entrySet()) {
                     FileT f = new FileT();
@@ -82,7 +87,16 @@ public class Data {
             }
         } catch (JAXBException ex) {
             Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }  
     }
+    
+    private String getDataLocation() {
+        if (BUILD) {
+            return System.getProperty("user.dir") + "\\data.xml";
+        } else {
+            return System.getProperty("user.dir") + "\\src\\data\\data.xml";
+        }
+    }
+    
+    
 }
