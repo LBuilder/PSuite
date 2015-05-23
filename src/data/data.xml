@@ -1,1 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><files><file><filePath>Some path/Folder/Folder/file3.exe</filePath><tag>three</tag></file><file><filePath>Some path/Folder/Folder/file2.exe</filePath><tag>two</tag></file><file><filePath>Some path/Folder/Folder/file1.exe</filePath><tag>one</tag></file></files>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<files>
+    <file>
+        <filePath>C:\Users\s124392\Dropbox\STUDIES\2IC60 Computer Networks &amp; Security\material\[NOT INTERNATIONAL] Computer Networking  - A Top-Down Approach.pdf</filePath>
+        <added_at>2015-05-26+02:00</added_at>
+        <opened_at>2015-05-23+02:00</opened_at>
+    </file>
+    <file>
+        <filePath>D:\Desktop\Saved Code.txt</filePath>
+        <added_at>2015-05-23+02:00</added_at>
+        <opened_at>2015-05-23+02:00</opened_at>
+        <tag>java</tag>
+    </file>
+    <file>
+        <filePath>D:\Desktop\GoT Parody.url</filePath>
+        <added_at>2015-05-25+02:00</added_at>
+        <opened_at>2015-05-20+02:00</opened_at>
+        <tag></tag>
+    </file>
+    <file>
+        <filePath>D:\Documents\FIFA 13\fifasetup.ini</filePath>
+        <added_at>2015-05-23+02:00</added_at>
+        <opened_at xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    </file>
+    <file>
+        <filePath>C:\Users\s124392\Dropbox\STUDIES\2IC60 Computer Networks &amp; Security\material\security-notes.pdf</filePath>
+        <added_at>2015-05-19+02:00</added_at>
+        <opened_at>2015-05-23+02:00</opened_at>
+        <tag>security</tag>
+        <tag>notes</tag>
+        <tag>tue</tag>
+    </file>
+</files>

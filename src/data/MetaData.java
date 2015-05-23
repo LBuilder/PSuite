@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,14 +15,19 @@ import java.util.List;
 public class MetaData {
     //<editor-fold defaultstate="collapsed" desc="Instance Variables">
     private List<String> tags;
+    private Date addedAt, openedAt;
     //</editor-fold>
     
     /**
      * Constructor.
      * @param t the list of tags.
+     * @param a the added_at date.
+     * @param o the opened_at date.
      */
-    public MetaData(final List<String> t) {
+    public MetaData(final List<String> t, final Date a, final Date o) {
         this.tags = t;
+        this.addedAt = a;
+        this.openedAt = o;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Accessor Methods">
@@ -32,6 +38,20 @@ public class MetaData {
     public List<String> getTags() {
         return tags;
     }
+    
+       /**
+     * @return the addedAt
+     */
+    public Date getAddedAt() {
+        return addedAt;
+    }
+
+    /**
+     * @return the openedAt
+     */
+    public Date getOpenedAt() {
+        return openedAt;
+    }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Set Methods">
     /**
@@ -39,6 +59,20 @@ public class MetaData {
      */
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+    
+        /**
+     * @param addedAt the addedAt to set
+     */
+    public void setAddedAt(Date addedAt) {
+        this.addedAt = addedAt;
+    }
+
+    /**
+     * @param openedAt the openedAt to set
+     */
+    public void setOpenedAt(Date openedAt) {
+        this.openedAt = openedAt;
     }
     //</editor-fold>
     //</editor-fold>

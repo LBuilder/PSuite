@@ -6,25 +6,21 @@
 package data;
 
 import generated.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
@@ -34,6 +30,7 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class Data {
     private static Data instance = null;
+    private final DataAdapter dataAdapter = new DataAdapter();
     private static final boolean BUILD = true;
     
     protected Data () {}
@@ -56,7 +53,7 @@ public class Data {
             files.stream().forEach((file) -> {
                 String fp = file.getFilePath();
                 List<String> tags = file.getTag();
-                MetaData md = new MetaData(tags);
+                MetaData md = new MetaData(tags, dataAdapter.gregToDate(file.getAddedAt()), dataAdapter.gregToDate(file.getOpenedAt()));
                 result.put(fp, md);
             });
         } catch (JAXBException ex) {
@@ -69,6 +66,7 @@ public class Data {
         try {
             JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
             Marshaller m = jc.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             try {
                 OutputStream os = new FileOutputStream(getDataLocation());
                 FileListT fl = new FileListT();
@@ -79,6 +77,15 @@ public class Data {
                         f.getTag().add(s);
                     }
                     fl.getFile().add(f);
+                    try {
+                        f.setAddedAt(dataAdapter.dateToGreg(entry.getValue().getAddedAt()));
+                        Date opened = entry.getValue().getOpenedAt();
+                        if (opened != null) {
+                            f.setOpenedAt(dataAdapter.dateToGreg(opened));
+                        }
+                    } catch (DatatypeConfigurationException ex) {
+                        Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 ObjectFactory o = new ObjectFactory();
                 m.marshal(o.createFiles(fl), os);

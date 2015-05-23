@@ -7,6 +7,7 @@ package gui;
 
 import data.MetaData;
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -51,7 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         jList1.repaint();
     }
     
-    public void setTags(List<String> tags) {
+    private void setTags(List<String> tags) {
         String result = "";
         for (String tag : tags) {
             result = result + tag + " ";
@@ -60,8 +61,30 @@ public class MainFrame extends javax.swing.JFrame {
         jTextArea1.setText(result);
     }
     
+    private void setAddedAt(String text) {
+        tfAddedAt.setText(text);
+    }
+    
+    private void setOpenedAt(String text) {
+        tfOpenedAt.setText(text);
+    }
+    
+    public void setMetaData(String addedAt, String openedAt, List<String> tags) {
+        setTags(tags);
+        setAddedAt(addedAt);
+        setOpenedAt(openedAt);
+    }
+    
     public String getTags() {
         return jTextArea1.getText();
+    }
+    
+    public String getAddedAtText() {
+        return tfAddedAt.getText();
+    }
+    
+    public String getOpenedAtText() {
+        return tfOpenedAt.getText();
     }
     
     public String getSearchText() {
@@ -76,8 +99,8 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup4 = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
-        resourcesPanel = new javax.swing.JPanel();
         filePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -85,12 +108,22 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton5 = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        tfAddedAt = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tfOpenedAt = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        tbSortADA = new javax.swing.JToggleButton();
+        tbSortADD = new javax.swing.JToggleButton();
+        tbNone = new javax.swing.JToggleButton();
+        tbSortODA = new javax.swing.JToggleButton();
+        tbSortODD = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
@@ -100,19 +133,6 @@ public class MainFrame extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
-
-        javax.swing.GroupLayout resourcesPanelLayout = new javax.swing.GroupLayout(resourcesPanel);
-        resourcesPanel.setLayout(resourcesPanelLayout);
-        resourcesPanelLayout.setHorizontalGroup(
-            resourcesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 999, Short.MAX_VALUE)
-        );
-        resourcesPanelLayout.setVerticalGroup(
-            resourcesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 752, Short.MAX_VALUE)
-        );
-
-        tabbedPane.addTab("Resources", resourcesPanel);
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -139,12 +159,16 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTextArea1);
 
-        jButton5.setText("Open");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnOpen.setText("Open");
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnOpenActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Added at:");
+
+        jLabel4.setText("Last opened at:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -154,10 +178,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
+                    .addComponent(tfAddedAt)
+                    .addComponent(tfOpenedAt)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jButton5))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(btnOpen))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -165,12 +193,20 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfAddedAt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfOpenedAt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnOpen)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Control"));
@@ -204,25 +240,90 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Order by:");
+
+        buttonGroup4.add(tbSortADA);
+        tbSortADA.setText("Add Date Ascending");
+        tbSortADA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbSortADAActionPerformed(evt);
+            }
+        });
+
+        buttonGroup4.add(tbSortADD);
+        tbSortADD.setText("Add Date Descending");
+        tbSortADD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbSortADDActionPerformed(evt);
+            }
+        });
+
+        buttonGroup4.add(tbNone);
+        tbNone.setText("None");
+        tbNone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbNoneActionPerformed(evt);
+            }
+        });
+
+        buttonGroup4.add(tbSortODA);
+        tbSortODA.setText("Open Date Ascending");
+        tbSortODA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbSortODAActionPerformed(evt);
+            }
+        });
+
+        buttonGroup4.add(tbSortODD);
+        tbSortODD.setText("Open Date Descending");
+        tbSortODD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbSortODDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2))
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tbSortADA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbSortADD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbNone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tbSortODA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbSortODD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tbSortADA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbSortADD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbSortODA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbSortODD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbNone)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -271,9 +372,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(filePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(filePanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(filePanelLayout.createSequentialGroup()
                         .addGroup(filePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,47 +407,54 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveAndRefresh() {
-       pSuite.saveMetaData(currentKey);
+        try {
+            pSuite.saveMetaData(currentKey);
+        } catch (ParseException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
        currentKey = String.valueOf(jList1.getSelectedValue());
        pSuite.updateMetaData(currentKey);
     }
     
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         saveAndRefresh();
-        if (jList1.getSelectedIndex() >= 0) {
-            jButton2.setEnabled(true);
-        }
-        jButton5.setEnabled(jList1.getSelectedIndices().length == 1);
-    }//GEN-LAST:event_jList1ValueChanged
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        pSuite.saveAndExit();
+    }//GEN-LAST:event_formWindowClosing
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         pSuite.updateFileList(jTextField1.getText());
     }//GEN-LAST:event_jTextField1KeyReleased
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+        pSuite.openFile(new File(String.valueOf(jList1.getSelectedValue())));
+    }//GEN-LAST:event_btnOpenActionPerformed
+
     private void jTextArea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusLost
         saveAndRefresh();
     }//GEN-LAST:event_jTextArea1FocusLost
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fc.setMultiSelectionEnabled(false);
-        int result = fc.showDialog(this, "Add File");
-        if (result == 0){
-            pSuite.addFile(fc.getSelectedFile().toString());
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        saveAndRefresh();
+        if (jList1.getSelectedIndex() >= 0) {
+            jButton2.setEnabled(true);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        btnOpen.setEnabled(jList1.getSelectedIndices().length == 1);
+    }//GEN-LAST:event_jList1ValueChanged
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        List<Object> values = jList1.getSelectedValuesList();
-        for (Object value : values) {
-            pSuite.removeFile(value.toString());
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setMultiSelectionEnabled(false);
+        int result = fc.showDialog(this, "Add Directory");
+        if (result == 0){
+            File dir = fc.getSelectedFile();
+            expandDirectories(dir);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         JFileChooser fc = new JFileChooser();
@@ -362,25 +470,42 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fc.setMultiSelectionEnabled(false);
-        int result = fc.showDialog(this, "Add Directory");
-        if (result == 0){
-            File dir = fc.getSelectedFile();
-            expandDirectories(dir);
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        List<Object> values = jList1.getSelectedValuesList();
+        for (Object value : values) {
+            pSuite.removeFile(value.toString());
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        saveAndRefresh();
-        pSuite.saveAndExit();
-    }//GEN-LAST:event_formWindowClosing
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setMultiSelectionEnabled(false);
+        int result = fc.showDialog(this, "Add File");
+        if (result == 0){
+            pSuite.addFile(fc.getSelectedFile().toString());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        pSuite.openFile(new File(String.valueOf(jList1.getSelectedValue())));
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void tbSortADAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbSortADAActionPerformed
+        pSuite.sortByAddDateAscending(jTextField1.getText());
+    }//GEN-LAST:event_tbSortADAActionPerformed
+
+    private void tbSortADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbSortADDActionPerformed
+        pSuite.sortByAddDateDescending(jTextField1.getText());
+    }//GEN-LAST:event_tbSortADDActionPerformed
+
+    private void tbSortODAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbSortODAActionPerformed
+        pSuite.sortByOpenDateAscending(jTextField1.getText());
+    }//GEN-LAST:event_tbSortODAActionPerformed
+
+    private void tbSortODDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbSortODDActionPerformed
+        pSuite.sortByOpenDateDescending(jTextField1.getText());
+    }//GEN-LAST:event_tbSortODDActionPerformed
+
+    private void tbNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbNoneActionPerformed
+        pSuite.updateFileList(jTextField1.getText());
+    }//GEN-LAST:event_tbNoneActionPerformed
 
     private void expandDirectories(File file) {
         File[] files = file.listFiles();
@@ -394,14 +519,18 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOpen;
+    private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JPanel filePanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -409,7 +538,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JPanel resourcesPanel;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JToggleButton tbNone;
+    private javax.swing.JToggleButton tbSortADA;
+    private javax.swing.JToggleButton tbSortADD;
+    private javax.swing.JToggleButton tbSortODA;
+    private javax.swing.JToggleButton tbSortODD;
+    private javax.swing.JTextField tfAddedAt;
+    private javax.swing.JTextField tfOpenedAt;
     // End of variables declaration//GEN-END:variables
 }
